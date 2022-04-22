@@ -172,6 +172,8 @@ public class Converter extends Application {
 		stage.setTitle(TITLE);
 		Scene scene = new Scene(new Group(), 450, 250);
 		
+		Label display = new Label("");
+		
 		ComboBox<String> fromDropDown = new ComboBox<String>();
 	    fromDropDown.getItems().addAll(KEYS);
 	    fromDropDown.setOnAction((e) -> {
@@ -184,10 +186,11 @@ public class Converter extends Application {
 	    	toCURRENCY = toDropDown.getSelectionModel().getSelectedItem();
 	    });
 	    
-	    ComboBox<String> valueDropDown = new ComboBox<String>();
-	    valueDropDown.getItems().addAll(VALUES);
-	    
 	    Button convertButton = new Button("Convert Currency");
+	    convertButton.setOnAction((e) -> { 
+	    	double rate = getRate(CURRENCIES, fromCURRENCY, toCURRENCY);
+	    	display.setText(Double.toString(rate));
+	    });
 		
 		GridPane grid = new GridPane();
         grid.setVgap(4);
@@ -197,9 +200,8 @@ public class Converter extends Application {
         grid.add(fromDropDown, 1, 0);
         grid.add(new Label("To: "), 2, 0);
         grid.add(toDropDown, 3, 0);
-        grid.add(new Label("Value: "), 0, 1);
-        grid.add(valueDropDown, 1, 1);
-        grid.add(convertButton, 3, 1);
+        grid.add(convertButton, 1, 1);
+        grid.add(display, 2, 1);
 //        grid.add(new Label("Subject: "), 0, 1);
 //        grid.add(subject, 1, 1, 3, 1);            
 //        grid.add(text, 0, 2, 4, 1);
@@ -210,7 +212,6 @@ public class Converter extends Application {
         root.getChildren().add(grid);
         stage.setScene(scene);
         stage.show();
-
 	}
 
 }
