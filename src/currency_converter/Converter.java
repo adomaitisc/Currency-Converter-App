@@ -37,11 +37,10 @@ public class Converter extends Application {
 	//Main
 	public static void main(String[] args) throws IOException, ParseException {
 		JSONObject obj = getCurrencyData(API_URL);
-		KEYS = getKeys(obj);
-		VALUES = getValues(obj);
-		CURRENCIES = zipArrays(KEYS, VALUES);
-		double rate = getRate(CURRENCIES, "BRL", "USD");
-		System.out.println(rate);
+		KEYS = getKeysFromJSON(obj);
+		VALUES = getValuesFromJSON(obj);
+		CURRENCIES = alphabetizeArray(zipArrays(KEYS, VALUES));
+		
 		launch(args);
 	}
 	
@@ -94,14 +93,14 @@ public class Converter extends Application {
 	
 	//Add JSON keys to a String array
 	@SuppressWarnings("unchecked")
-	public static String[] getKeys(JSONObject json) {
+	public static String[] getKeysFromJSON(JSONObject json) {
 		Set<String> keys = json.keySet();
 	    return keys.toArray(String[]::new);
 	}
 	
 	//Add JSON values to a double array
 	@SuppressWarnings({ "rawtypes" })
-	public static String[] getValues(JSONObject json) {
+	public static String[] getValuesFromJSON(JSONObject json) {
 		Collection rawValues = json.values();
 		Object[] arrayO = rawValues.toArray();
 		double[] arrayD = new double[arrayO.length];
@@ -153,18 +152,12 @@ public class Converter extends Application {
 		return Double.parseDouble(string);
 	}
 	
-	//Prints array in console
-	public static void printArray(String[] array) {
-		for(int i = 0; i < array.length; i++) {
-			System.out.println(array[i]);
+	public static String[] getKeysFrom(String[][] arr) {
+		String[] array = new String[arr.length];
+		for(int i = 0; i < arr.length; i++) {
+			array[i] = arr[i][0];
 		}
-	}
-	
-	//Prints 2d array in console
-	public static void printArray(String[][] array) {
-		for(int i = 0; i < array.length; i++) {
-			System.out.println(array[i][0] + ": " + array[i][1]);
-		}
+		return array;
 	}
 	
 	//JavaFX window settings
@@ -176,13 +169,13 @@ public class Converter extends Application {
 		Label display = new Label("");
 		
 		ComboBox<String> fromDropDown = new ComboBox<String>();
-	    fromDropDown.getItems().addAll(KEYS);
+	    fromDropDown.getItems().addAll(getKeysFrom(CURRENCIES));
 	    fromDropDown.setOnAction((e) -> {
 	    	fromCURRENCY = fromDropDown.getSelectionModel().getSelectedItem();
 	    });
 		
 	    ComboBox<String> toDropDown = new ComboBox<String>();
-	    toDropDown.getItems().addAll(KEYS);
+	    toDropDown.getItems().addAll(getKeysFrom(CURRENCIES));
 	    toDropDown.setOnAction((e) -> {
 	    	toCURRENCY = toDropDown.getSelectionModel().getSelectedItem();
 	    });
