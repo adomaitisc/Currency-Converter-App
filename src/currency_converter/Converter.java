@@ -7,6 +7,9 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -167,6 +170,7 @@ public class Converter extends Application {
 		Scene scene = new Scene(new Group(), 450, 250);
 		
 		Label display = new Label("");
+		display.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		
 		ComboBox<String> fromDropDown = new ComboBox<String>();
 	    fromDropDown.getItems().addAll(getKeysFrom(CURRENCIES));
@@ -186,34 +190,29 @@ public class Converter extends Application {
             String string = "" + String.format("%.3f", rate);
             display.setText(string);
 	    });
-	    
-	    HBox hbox0 = new HBox();
-	    
-		VBox vbox = new VBox();
 		
 		HBox hbox1 = new HBox();
+		hbox1.setSpacing(20);
+		hbox1.setAlignment(Pos.BASELINE_RIGHT);
 		hbox1.getChildren().add(new Label("From: "));
         hbox1.getChildren().add(fromDropDown);
-        
+      
 		HBox hbox2 = new HBox();
+		hbox2.setSpacing(20);
+		hbox2.setAlignment(Pos.BASELINE_RIGHT);
 		hbox2.getChildren().add(new Label("To: "));
 		hbox2.getChildren().add(toDropDown);
 		
-		hbox1.setAlignment(Pos.BASELINE_RIGHT);
-		hbox2.setAlignment(Pos.BASELINE_RIGHT);
-		
+		VBox vbox = new VBox();
         vbox.setSpacing(10);
         vbox.setLayoutX(10);
         vbox.setLayoutY(10);
-        
-        hbox1.setSpacing(20);
-        hbox2.setSpacing(20);
-        
         vbox.getChildren().add(hbox1);
         vbox.getChildren().add(hbox2);
         vbox.getChildren().add(convertButton);
         vbox.getChildren().add(display);
 
+        HBox hbox0 = new HBox();
         hbox0.getChildren().add(vbox);
         hbox0.setAlignment(Pos.BASELINE_CENTER);
         hbox0.setPrefWidth(450);
