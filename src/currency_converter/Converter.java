@@ -38,10 +38,9 @@ public class Converter extends Application {
 
 	private static String TITLE = "Currency Converter";
 	private static String API_URL = "https://api.exchangerate.host/latest";
-	private static String[] KEYS;
-	private static String[] VALUES;
+	private static String[] KEYS, VALUES;
 	private static String[][] CURRENCIES;
-	private static String fromCURRENCY, toCURRENCY;
+	private static String amount, fromCurrency, toCurrency;
 
 	//Main
 	public static void main(String[] args) throws IOException, ParseException {
@@ -89,10 +88,10 @@ public class Converter extends Application {
 		double value1 = 0.0;
 		for(int i = 0; i < currencyList.length; i++) {
 			if(currency0.equals(currencyList[i][0])) {
-				value0 = getDouble(currencyList[i][1]);
+				value0 = toDouble(currencyList[i][1]);
 			}
 			if(currency1.equals(currencyList[i][0])) {
-				value1 = getDouble(currencyList[i][1]);
+				value1 = toDouble(currencyList[i][1]);
 			}
 		}
 		double ratio0 = 1/value0;
@@ -157,7 +156,7 @@ public class Converter extends Application {
 	}
 	
 	//Converts double into String
-	public static double getDouble(String string) {
+	public static double toDouble(String string) {
 		return Double.parseDouble(string);
 	}
 	
@@ -168,6 +167,7 @@ public class Converter extends Application {
 		}
 		return array;
 	}
+	
 	
 	//JavaFX window settings
 	@Override
@@ -182,30 +182,42 @@ public class Converter extends Application {
 		Scene scene = new Scene(new Group(hbox4), 250, 190);
 		
 		Label inputLabel = new Label("Amount: ");
+		
 		TextField inputField = new TextField();
 		
+
 		Label display = new Label("-");
 		display.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
+
+		Label display0 = new Label("");
+		display0.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
+		
+		Label display1 = new Label("");
+		display1.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
+
 		
 		ComboBox<String> fromDropDown = new ComboBox<String>();
 		fromDropDown.setPrefWidth(100);
 	    fromDropDown.getItems().addAll(getKeysFrom(CURRENCIES));
 	    fromDropDown.setOnAction((e) -> {
-	    	fromCURRENCY = fromDropDown.getSelectionModel().getSelectedItem();
+	    	fromCurrency = fromDropDown.getSelectionModel().getSelectedItem();
 	    });
 		
 	    ComboBox<String> toDropDown = new ComboBox<String>();
 	    toDropDown.setPrefWidth(100);
 	    toDropDown.getItems().addAll(getKeysFrom(CURRENCIES));
 	    toDropDown.setOnAction((e) -> {
-	    	toCURRENCY = toDropDown.getSelectionModel().getSelectedItem();
+	    	toCurrency = toDropDown.getSelectionModel().getSelectedItem();
 	    });
 	    
 	    Button convertButton = new Button("Exchange");
 	    convertButton.setOnAction((e) -> { 
-	    	double rate = getRate(CURRENCIES, fromCURRENCY, toCURRENCY);
-            String string = "" + String.format("%.3f", rate);
-            display.setText(string);
+	    	amount = inputField.getText();
+	    	double rate = getRate(CURRENCIES, fromCurrency, toCurrency);
+	    	String string0 = "1 " + fromCurrency + " = " + String.format("%.3f", rate) + " " + toCurrency;
+            String string1 = amount + " " + fromCurrency + " = " + String.format("%.3f", (toDouble(amount) * rate)) + " " + toCurrency;
+            display0.setText(string0);
+            display1.setText(string1);
 	    });
 	    
 	    HBox hbox1 = new HBox();
@@ -234,7 +246,8 @@ public class Converter extends Application {
         vbox.getChildren().add(hbox2);
         vbox.getChildren().add(hbox3);
         vbox.getChildren().add(convertButton);
-        vbox.getChildren().add(display);
+        vbox.getChildren().add(display0);
+        vbox.getChildren().add(display1);
 
         hbox0.getChildren().add(vbox);
         hbox0.setAlignment(Pos.CENTER);
