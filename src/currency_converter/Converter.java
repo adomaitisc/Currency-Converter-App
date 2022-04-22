@@ -30,6 +30,7 @@ public class Converter extends Application {
 	private static String[] KEYS;
 	private static String[] VALUES;
 	private static String[][] CURRENCIES;
+	private static String fromCURRENCY, toCURRENCY;
 
 	//Main
 	public static void main(String[] args) throws IOException, ParseException {
@@ -37,7 +38,7 @@ public class Converter extends Application {
 		KEYS = getKeys(obj);
 		VALUES = getValues(obj);
 		CURRENCIES = zipArrays(KEYS, VALUES);
-		double rate = getRate(CURRENCIES, "CAD", "EUR");
+		double rate = getRate(CURRENCIES, "BRL", "USD");
 		System.out.println(rate);
 		launch(args);
 	}
@@ -170,13 +171,19 @@ public class Converter extends Application {
 		stage.setTitle(TITLE);
 		Scene scene = new Scene(new Group(), 450, 250);
 		
-		final ComboBox<String> fromDropDown = new ComboBox<String>();
+		ComboBox<String> fromDropDown = new ComboBox<String>();
 	    fromDropDown.getItems().addAll(KEYS);
+	    fromDropDown.setOnAction((e) -> {
+	    	fromCURRENCY = fromDropDown.getSelectionModel().getSelectedItem();
+	    });
 		
-	    final ComboBox<String> toDropDown = new ComboBox<String>();
+	    ComboBox<String> toDropDown = new ComboBox<String>();
 	    toDropDown.getItems().addAll(KEYS);
+	    toDropDown.setOnAction((e) -> {
+	    	toCURRENCY = toDropDown.getSelectionModel().getSelectedItem();
+	    });
 	    
-	    final ComboBox<String> valueDropDown = new ComboBox<String>();
+	    ComboBox<String> valueDropDown = new ComboBox<String>();
 	    valueDropDown.getItems().addAll(VALUES);
 		
 		GridPane grid = new GridPane();
