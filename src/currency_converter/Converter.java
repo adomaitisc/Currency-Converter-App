@@ -6,6 +6,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
@@ -185,6 +186,8 @@ public class Converter extends Application {
 	    
 	    ComboBox<String> valueDropDown = new ComboBox<String>();
 	    valueDropDown.getItems().addAll(VALUES);
+	    
+	    Button convertButton = new Button("Convert Currency");
 		
 		GridPane grid = new GridPane();
         grid.setVgap(4);
@@ -196,6 +199,7 @@ public class Converter extends Application {
         grid.add(toDropDown, 3, 0);
         grid.add(new Label("Value: "), 0, 1);
         grid.add(valueDropDown, 1, 1);
+        grid.add(convertButton, 3, 1);
 //        grid.add(new Label("Subject: "), 0, 1);
 //        grid.add(subject, 1, 1, 3, 1);            
 //        grid.add(text, 0, 2, 4, 1);
