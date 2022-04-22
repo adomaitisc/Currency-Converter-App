@@ -3,9 +3,11 @@ package currency_converter;
 //JavaFX imports
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -186,25 +188,37 @@ public class Converter extends Application {
 	    	display.setText(Double.toString(rate));
 	    });
 	    
+	    HBox hbox0 = new HBox();
+	    
+	    
 		VBox vbox = new VBox();
 		
+		HBox hbox1 = new HBox();
+		hbox1.getChildren().add(new Label("From: "));
+        hbox1.getChildren().add(fromDropDown);
+        
+		HBox hbox2 = new HBox();
+		hbox2.getChildren().add(new Label("To: "));
+		hbox2.getChildren().add(toDropDown);
+		
+		hbox1.setAlignment(Pos.BASELINE_RIGHT);
+		hbox2.setAlignment(Pos.BASELINE_RIGHT);
         vbox.setSpacing(10);
-        vbox.setLayoutX(10);//fgg
+        vbox.setLayoutX(10);
         vbox.setLayoutY(10);
-        vbox.getChildren().add(new Label("From: "));
-        vbox.getChildren().add(fromDropDown);
-        vbox.getChildren().add(new Label("To: "));
-        vbox.getChildren().add(toDropDown);
+        hbox1.setSpacing(20);
+        hbox2.setSpacing(20);
+        vbox.getChildren().add(hbox1);
+        vbox.getChildren().add(hbox2);
         vbox.getChildren().add(convertButton);
         vbox.getChildren().add(display);
-//        grid.add(new Label("Subject: "), 0, 1);
-//        grid.add(subject, 1, 1, 3, 1);            
-//        grid.add(text, 0, 2, 4, 1);
-//        grid.add(button, 0, 3);
-//        grid.add (notification, 1, 3, 3, 1);
+
+        hbox0.getChildren().add(vbox);
+        hbox0.setAlignment(Pos.BASELINE_CENTER);
+        hbox0.setPrefWidth(450);
 		
         Group root = (Group)scene.getRoot();
-        root.getChildren().add(vbox);
+        root.getChildren().add(hbox0);
         stage.setScene(scene);
         stage.show();
 	}
