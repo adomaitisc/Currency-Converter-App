@@ -13,6 +13,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 //Java regular imports
@@ -169,39 +170,51 @@ public class Converter extends Application {
 		stage.setTitle(TITLE);
 		Scene scene = new Scene(new Group(), 450, 250);
 		
+		Label inputLabel = new Label("Amount: ");
+		TextField inputField = new TextField();
+		inputField.setPrefWidth(100);
+		
 		Label display = new Label("");
 		display.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		
 		ComboBox<String> fromDropDown = new ComboBox<String>();
+		fromDropDown.setPrefWidth(100);
 	    fromDropDown.getItems().addAll(getKeysFrom(CURRENCIES));
 	    fromDropDown.setOnAction((e) -> {
 	    	fromCURRENCY = fromDropDown.getSelectionModel().getSelectedItem();
 	    });
 		
 	    ComboBox<String> toDropDown = new ComboBox<String>();
+	    toDropDown.setPrefWidth(100);
 	    toDropDown.getItems().addAll(getKeysFrom(CURRENCIES));
 	    toDropDown.setOnAction((e) -> {
 	    	toCURRENCY = toDropDown.getSelectionModel().getSelectedItem();
 	    });
 	    
-	    Button convertButton = new Button("Convert Currency");
+	    Button convertButton = new Button("Exchange");
 	    convertButton.setOnAction((e) -> { 
 	    	double rate = getRate(CURRENCIES, fromCURRENCY, toCURRENCY);
             String string = "" + String.format("%.3f", rate);
             display.setText(string);
 	    });
+	    
+	    HBox hbox1 = new HBox();
+	    hbox1.setSpacing(20);
+	    hbox1.setAlignment(Pos.BASELINE_RIGHT);
+	    hbox1.getChildren().add(inputLabel);
+	    hbox1.getChildren().add(inputField);
 		
-		HBox hbox1 = new HBox();
-		hbox1.setSpacing(20);
-		hbox1.setAlignment(Pos.BASELINE_RIGHT);
-		hbox1.getChildren().add(new Label("From: "));
-        hbox1.getChildren().add(fromDropDown);
-      
 		HBox hbox2 = new HBox();
 		hbox2.setSpacing(20);
 		hbox2.setAlignment(Pos.BASELINE_RIGHT);
-		hbox2.getChildren().add(new Label("To: "));
-		hbox2.getChildren().add(toDropDown);
+		hbox2.getChildren().add(new Label("From: "));
+        hbox2.getChildren().add(fromDropDown);
+      
+		HBox hbox3 = new HBox();
+		hbox3.setSpacing(20);
+		hbox3.setAlignment(Pos.BASELINE_RIGHT);
+		hbox3.getChildren().add(new Label("To: "));
+		hbox3.getChildren().add(toDropDown);
 		
 		VBox vbox = new VBox();
         vbox.setSpacing(10);
@@ -209,12 +222,12 @@ public class Converter extends Application {
         vbox.setLayoutY(10);
         vbox.getChildren().add(hbox1);
         vbox.getChildren().add(hbox2);
+        vbox.getChildren().add(hbox3);
         vbox.getChildren().add(convertButton);
         vbox.getChildren().add(display);
 
         HBox hbox0 = new HBox();
         hbox0.getChildren().add(vbox);
-        hbox0.setAlignment(Pos.BASELINE_CENTER);
         hbox0.setPrefWidth(450);
 		
         Group root = (Group)scene.getRoot();
