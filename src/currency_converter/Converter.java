@@ -179,20 +179,16 @@ public class Converter extends Application {
 		HBox hbox4 = new HBox();
 		hbox4.setAlignment(Pos.CENTER);
 		
-		Scene scene = new Scene(new Group(hbox4), 250, 190);
+		Scene scene = new Scene(new Group(hbox4), 250, 240);
 		
 		Label inputLabel = new Label("Amount: ");
 		
 		TextField inputField = new TextField();
-		
 
-		Label display = new Label("-");
-		display.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
-
-		Label display0 = new Label("");
+		Label display0 = new Label("-");
 		display0.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		
-		Label display1 = new Label("");
+		Label display1 = new Label("-");
 		display1.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
 
 		
@@ -248,6 +244,7 @@ public class Converter extends Application {
         vbox.getChildren().add(convertButton);
         vbox.getChildren().add(display0);
         vbox.getChildren().add(display1);
+        vbox.getChildren().add(new Label(""));
 
         hbox0.getChildren().add(vbox);
         hbox0.setAlignment(Pos.CENTER);
