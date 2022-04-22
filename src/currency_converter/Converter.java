@@ -257,6 +257,7 @@ public class Converter extends Application {
         Group root = (Group)scene.getRoot();
         root.getChildren().add(hbox0);
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
 	}
 
