@@ -2,11 +2,16 @@ package currency_converter;
 
 //JavaFX imports
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -168,13 +173,18 @@ public class Converter extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {		
 		stage.setTitle(TITLE);
-		Scene scene = new Scene(new Group(), 450, 250);
+		
+		HBox hbox0 = new HBox();
+		hbox0.setPrefWidth(400);
+		HBox hbox4 = new HBox();
+		hbox4.setAlignment(Pos.CENTER);
+		
+		Scene scene = new Scene(new Group(hbox4), 250, 190);
 		
 		Label inputLabel = new Label("Amount: ");
 		TextField inputField = new TextField();
-		inputField.setPrefWidth(100);
 		
-		Label display = new Label("");
+		Label display = new Label("-");
 		display.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		
 		ComboBox<String> fromDropDown = new ComboBox<String>();
@@ -217,19 +227,23 @@ public class Converter extends Application {
 		hbox3.getChildren().add(toDropDown);
 		
 		VBox vbox = new VBox();
-        vbox.setSpacing(10);
-        vbox.setLayoutX(10);
-        vbox.setLayoutY(10);
+        vbox.setSpacing(15);
+        vbox.setAlignment(Pos.BASELINE_RIGHT);
+        vbox.setBackground(null);
         vbox.getChildren().add(hbox1);
         vbox.getChildren().add(hbox2);
         vbox.getChildren().add(hbox3);
         vbox.getChildren().add(convertButton);
         vbox.getChildren().add(display);
 
-        HBox hbox0 = new HBox();
         hbox0.getChildren().add(vbox);
-        hbox0.setPrefWidth(450);
-		
+        hbox0.setAlignment(Pos.CENTER);
+        hbox0.setPrefWidth(250);
+        
+        BackgroundFill backgroundFill = new BackgroundFill(Color.PINK, CornerRadii.EMPTY, Insets.EMPTY);
+        Background background = new Background(backgroundFill);
+        hbox0.setBackground(background);
+        
         Group root = (Group)scene.getRoot();
         root.getChildren().add(hbox0);
         stage.setScene(scene);

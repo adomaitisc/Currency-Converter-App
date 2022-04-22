@@ -6,7 +6,7 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX 17"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JSON Parser"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JsonSimple"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
