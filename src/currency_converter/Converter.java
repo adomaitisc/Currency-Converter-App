@@ -6,6 +6,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -191,17 +192,18 @@ public class Converter extends Application {
 	    	double rate = getRate(CURRENCIES, fromCURRENCY, toCURRENCY);
 	    	display.setText(Double.toString(rate));
 	    });
+	    
+		VBox vbox = new VBox();
 		
-		GridPane grid = new GridPane();
-        grid.setVgap(4);
-        grid.setHgap(10);
-        grid.setPadding(new Insets(5, 5, 5, 5));
-        grid.add(new Label("From: "), 0, 0);
-        grid.add(fromDropDown, 1, 0);
-        grid.add(new Label("To: "), 2, 0);
-        grid.add(toDropDown, 3, 0);
-        grid.add(convertButton, 1, 1);
-        grid.add(display, 2, 1);
+        vbox.setSpacing(10);
+        vbox.setLayoutX(10);
+        vbox.setLayoutY(10);
+        vbox.getChildren().add(new Label("From: "));
+        vbox.getChildren().add(fromDropDown);
+        vbox.getChildren().add(new Label("To: "));
+        vbox.getChildren().add(toDropDown);
+        vbox.getChildren().add(convertButton);
+        vbox.getChildren().add(display);
 //        grid.add(new Label("Subject: "), 0, 1);
 //        grid.add(subject, 1, 1, 3, 1);            
 //        grid.add(text, 0, 2, 4, 1);
@@ -209,7 +211,7 @@ public class Converter extends Application {
 //        grid.add (notification, 1, 3, 3, 1);
 		
         Group root = (Group)scene.getRoot();
-        root.getChildren().add(grid);
+        root.getChildren().add(vbox);
         stage.setScene(scene);
         stage.show();
 	}
