@@ -2,11 +2,9 @@ package currency_converter;
 
 //JavaFX imports
 import javafx.application.Application;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Button;
@@ -185,11 +183,11 @@ public class Converter extends Application {
 	    Button convertButton = new Button("Convert Currency");
 	    convertButton.setOnAction((e) -> { 
 	    	double rate = getRate(CURRENCIES, fromCURRENCY, toCURRENCY);
-	    	display.setText(Double.toString(rate));
+            String string = "" + String.format("%.3f", rate);
+            display.setText(string);
 	    });
 	    
 	    HBox hbox0 = new HBox();
-	    
 	    
 		VBox vbox = new VBox();
 		
@@ -203,11 +201,14 @@ public class Converter extends Application {
 		
 		hbox1.setAlignment(Pos.BASELINE_RIGHT);
 		hbox2.setAlignment(Pos.BASELINE_RIGHT);
+		
         vbox.setSpacing(10);
         vbox.setLayoutX(10);
         vbox.setLayoutY(10);
+        
         hbox1.setSpacing(20);
         hbox2.setSpacing(20);
+        
         vbox.getChildren().add(hbox1);
         vbox.getChildren().add(hbox2);
         vbox.getChildren().add(convertButton);
