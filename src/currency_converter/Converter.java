@@ -189,7 +189,7 @@ public class Converter extends Application {
 		VBox vbox = new VBox();
 		
         vbox.setSpacing(10);
-        vbox.setLayoutX(10);
+        vbox.setLayoutX(10);//fgg
         vbox.setLayoutY(10);
         vbox.getChildren().add(new Label("From: "));
         vbox.getChildren().add(fromDropDown);
